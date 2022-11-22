@@ -1,56 +1,48 @@
 #include <stdio.h>
-int front = -1, rear = -1;
-int arr[10];
-int isempty()
+#define size 10
+int arr[size];
+int rear = 0;
+int front = 1;
+int OverFlowcheck()
 {
-    if ((front == -1) && (rear == -1))
-    {
+    if (rear <= size)
         return 1;
-    }
-}
-void enqueue(int element)
-{
-    int x = isempty();
-    if (x == 1)
-    {
-        rear = front = 0;
-        arr[rear] = element;
-    }
     else
+        return 0;
+}
+void inqueue(int element)
+{
+    int x = OverFlowcheck();
+    if (x == 1)
     {
         arr[++rear] = element;
     }
 }
 void dequeue()
 {
-    int x = isempty();
-    if (x == 1)
-    {
+    if (rear == 0)
         return;
-    }
     else
-    {
-        front++;
+    {   
+        printf("Removed element: %d\n", arr[front]);
+        ++front;
     }
 }
-
 void print()
-{
-    int  x = front;
-    while (x <= rear)
+{   
+    printf("Queue: ");
+    for (int i = front; i <= rear; i++)
     {
-        printf("%d ", arr[x]);
-        x++;
+        printf("%d ", arr[i]);
     }
     printf("\n");
 }
 int main()
 {
-    enqueue(1);
-    enqueue(2);
-    enqueue(3);
-    enqueue(4);
-    enqueue(5);
+    inqueue(1);
+    inqueue(2);
+    inqueue(3);
+    print();
     dequeue();
     print();
     return 0;
